@@ -1,33 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[한국어로 읽기 (Read in Korean)](README.ko.md)
 
-## Getting Started
+# Next.js + Supabase Project Template
 
-First, run the development server:
+This is a comprehensive project template designed to quickly bootstrap a new application with a modern, robust, and scalable tech stack.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*   **Full UI Component Set**: Includes all components from [Shadcn/UI](https://ui.shadcn.com/) pre-installed and ready to use.
+*   **Pre-configured Database & Auth**:
+    *   **Supabase/Drizzle**: Key setup files (`drizzle.config.ts`, `middleware.ts`) and folders (`db/`, `types/`, `utils/`) are already in place for a seamless database integration.
+    *   **Easy Authentication**: A pre-built login page and authentication logic are configured in the `app/auth/login` and `domains/auth` directories.
+*   **AI-Assisted Workflow**: Optimized for modern development with guidelines for multiple AI tools:
+    *   **Cursor IDE**: Recommended as the base editor.
+    *   **Claude**: Includes guides for code generation and implementation.
+    *   **Gemini CLI**: Integrated with custom commands for project analysis and management.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*   **Framework**: [Next.js](https://nextjs.org/) (App Router)
+*   **UI**: [Shadcn/UI](https://ui.shadcn.com/)
+*   **Database & ORM**: [Supabase](https://supabase.com/) with [Drizzle ORM](https://orm.drizzle.team/)
+*   **Authentication**: Supabase Auth with Google OAuth
+*   **Deployment**: [Vercel](https://vercel.com/)
 
-## Learn More
+## Project Setup
 
-To learn more about Next.js, take a look at the following resources:
+For detailed setup and installation instructions, please refer to the official guide:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **[>> View the Installation Guide <<](docs/INSTALLATION.md)**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Basic Workflow
+
+This template is designed to be used with an AI-assisted workflow. Here is a typical process:
+
+1.  **Define Requirements (PRD)**:
+    *   Edit the `.cursor/rules/prd.prompt.md` file to add your project's specifications.
+    *   Use this to generate a final `prd.md`.
+
+2.  **Create Tasks**:
+    *   Use the `.cursor/tasks/task.add.prompt.mdc` template to generate initial development tasks based on your PRD.
+
+3.  **Implement Tasks**:
+    *   Use the `.cursor/tasks/task.implement.prompt.md` guide to implement each feature.
 
 ## Deploy on Vercel
 

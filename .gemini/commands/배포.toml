@@ -1,0 +1,12 @@
+description = "현재 변경사항을 Git에 커밋하고 푸시하여 배포 준비를 합니다."
+prompt = """
+배포를 위해 다음 Git 명령어들을 순서대로 실행해야 합니다.
+
+1. `git add .`
+2. `git commit -m "{{args}}"` (커밋 메시지를 여기에 입력하세요)
+3. `git push`
+
+**"{{args}}"** 부분에 이번 변경사항에 대한 커밋 메시지를 작성하여 실행해주세요.
+
+예시: `git commit -m "feat: Add new login button"`
+"""
