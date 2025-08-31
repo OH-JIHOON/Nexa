@@ -51,16 +51,19 @@ vercel login
    - GitHub 템플릿 레포지토리에서 `Use this template` > `Create a new repository`를 클릭하여 새로운 프로젝트 레포지토리를 생성합니다.
 
 2. **로컬에 클론 및 의존성 설치**
-   ```bash
-   # 생성된 레포지토리를 로컬에 클론합니다
-   git clone https://github.com/your-username/your-new-repository.git
-   
-   # 프로젝트 디렉토리로 이동합니다
-   cd your-new-repository
-   
-   # 의존성을 설치합니다
-   npm install
-   ```
+
+```bash
+# 생성된 레포지토리를 로컬에 클론합니다
+git clone https://github.com/<your-username>/<your-new-repository>.git
+```
+```bash
+# 프로젝트 디렉토리로 이동합니다
+cd <your-new-repository>
+```
+```bash
+# 의존성을 설치합니다
+npm install
+```
 
 3. **환경변수 파일 생성**
    ```bash
@@ -73,9 +76,12 @@ vercel login
 
 ```bash
 # GitHub에 새로운 Public 레포지토리를 생성하고 바로 클론합니다
-gh repo create your-new-repository --public --clone --template=template-repo-name
-cd your-new-repository
-
+gh repo create <your-new-repository> --public --clone --template=OH-JIHOON/Nexa
+```
+```bash
+cd <your-new-repository>
+```
+```bash
 # 의존성 설치 및 .env 파일 준비
 npm install
 cp .env.example .env
@@ -125,12 +131,13 @@ supabase projects create "프로젝트 이름" \
   --org-id "Your-Org-ID" \
   --db-password "강력한-비밀번호" \
   --region ap-northeast-2
-
-# 출력된 project-ref, anon key, service role key를 메모해둡니다
-
+  # 출력된 project-ref, anon key, service role key를 메모해둡니다
+```
+```bash
 # 로컬 프로젝트를 Supabase 프로젝트와 연결
 supabase link --project-ref <your-project-id>
-
+```
+```bash
 # .env 파일을 수동으로 업데이트 (위에서 메모한 값들 사용)
 # 또는 아래 스크립트로 자동 설정 (주의: 프로젝트 ID 확인 필요)
 echo "SUPABASE_PROJECT_ID=<your-project-id>" >> .env
@@ -140,7 +147,8 @@ echo "SUPABASE_SERVICE_ROLE=<your-service-role-key>" >> .env
 
 # 데이터베이스 URL은 Supabase 대시보드에서 확인 후 추가
 # Connect > ORMs > Drizzle 섹션 참조
-
+```
+```bash
 # 데이터베이스 마이그레이션
 npm run db:migrate
 ```
@@ -157,12 +165,7 @@ npm run db:migrate
 
 2. **OAuth 동의 화면 설정**
    - `API 및 서비스` > `OAuth 동의 화면`으로 이동합니다.
-   - **User Type**은 `외부`를 선택합니다.
-   - 앱 이름, 사용자 지원 이메일, 개발자 연락처 정보(이메일)를 입력하고 저장 후 계속합니다.
-   - **범위** 설정에서 다음 3가지 범위를 추가하고 저장합니다:
-     - `.../auth/userinfo.email`
-     - `.../auth/userinfo.profile`
-     - `openid`
+   - 앱 이름, 사용자 지원 이메일, 대상은 `외부`를 선택, 개발자 연락처 정보(이메일)를 입력하고 저장 후 계속합니다.
 
 3. **OAuth 클라이언트 ID 생성**
    - `API 및 서비스` > `사용자 인증 정보` > `사용자 인증 정보 만들기` > `OAuth 클라이언트 ID`를 선택합니다.
@@ -172,7 +175,14 @@ npm run db:migrate
      - `http://localhost:3000`을 추가합니다. (로컬 테스트용)
    - `만들기`를 클릭하면 **클라이언트 ID**와 **클라이언트 보안 비밀**이 생성됩니다.
 
-4. **환경변수 및 Supabase에 Google 정보 추가**
+4. **데이터 액세스**
+   - `Google 인증 플랫폼` > `데이터 액세스`
+   - 설정에서 다음 3가지 범위를 추가하고 저장합니다:
+     - `.../auth/userinfo.email`
+     - `.../auth/userinfo.profile`
+     - `openid`
+
+5. **환경변수 및 Supabase에 Google 정보 추가**
    - **`.env` 파일 업데이트**:
      ```bash
      GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
@@ -208,6 +218,7 @@ npm run db:migrate
    - **Site URL**: Vercel 배포 도메인을 붙여넣습니다.
    - **Redirect URLs**: 아래 형식의 URL들을 추가합니다:
      - `http://localhost:3000/**`
+     - `http://*-your-team.vercel.app/**`
      - `https://your-project-name.vercel.app/**`
 
 4. **최종 환경변수 추가**
@@ -226,18 +237,22 @@ npm run db:migrate
 git add .
 git commit -m "Initial setup"
 git push origin main
-
+```
+```bash
 # Vercel 프로젝트 연결
 vercel link
-
+```
+```bash
 # 환경변수를 Vercel에 추가 (프로덕션 환경)
 cat .env | grep -v '^#' | grep -v '^$' | while IFS='=' read -r key value; do
   vercel env add "$key" production <<< "$value"
 done
-
+```
+```bash
 # 프로덕션 배포
 vercel --prod
-
+```
+```bash
 # 배포 URL 확인 및 .env 업데이트
 DEPLOYMENT_URL=$(vercel ls --json | jq -r '.deployments[0].url')
 echo "NEXT_PUBLIC_SITE_URL=https://$DEPLOYMENT_URL" >> .env
@@ -253,9 +268,9 @@ vercel env add NEXT_PUBLIC_SITE_URL production <<< "https://$DEPLOYMENT_URL"
 ## 5. 로컬 개발 서버 실행 및 확인
 
 1. **개발 서버 실행**
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 2. **로그인 기능 확인**
    - `http://localhost:3000`에 접속하여 Google 로그인을 시도합니다.

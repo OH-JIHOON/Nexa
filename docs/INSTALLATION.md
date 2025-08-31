@@ -51,16 +51,19 @@ vercel login
    - On the GitHub template repository page, click `Use this template` > `Create a new repository` to generate a new project repository.
 
 2. **Clone locally and install dependencies**
-   ```bash
-   # Clone the created repository locally
-   git clone https://github.com/your-username/your-new-repository.git
-   
-   # Navigate to the project directory
-   cd your-new-repository
-   
-   # Install dependencies
-   npm install
-   ```
+
+```bash
+# Clone the created repository locally
+git clone https://github.com/<your-username>/<your-new-repository>.git
+```
+```bash
+# Navigate to the project directory
+cd <your-new-repository>
+```
+```bash
+# Install dependencies
+npm install
+```
 
 3. **Create environment variable file**
    ```bash
@@ -73,9 +76,12 @@ vercel login
 
 ```bash
 # Create a new public repository from the template and clone it
-gh repo create your-new-repository --public --clone --template=template-repo-name
-cd your-new-repository
-
+gh repo create <your-new-repository> --public --clone --template=OH-JIHOON/Nexa
+```
+```bash
+cd <your-new-repository>
+```
+```bash
 # Install dependencies and prepare the .env file
 npm install
 cp .env.example .env
@@ -125,12 +131,13 @@ supabase projects create "Your Project Name" \
   --org-id "Your-Org-ID" \
   --db-password "A-Strong-Password" \
   --region ap-northeast-2
-
 # Take note of the outputted project-ref, anon key, and service role key
-
+```
+```bash
 # Link the local project to your Supabase project
 supabase link --project-ref <your-project-id>
-
+```
+```bash
 # Update the .env file manually (using the values you noted)
 # Or, set them automatically with the script below (warning: verify project ID)
 echo "SUPABASE_PROJECT_ID=<your-project-id>" >> .env
@@ -140,7 +147,8 @@ echo "SUPABASE_SERVICE_ROLE=<your-service-role-key>" >> .env
 
 # Database URLs must be added after checking the Supabase dashboard
 # See the Connect > ORMs > Drizzle section
-
+```
+```bash
 # Database Migration
 npm run db:migrate
 ```
@@ -157,12 +165,7 @@ This step can only be configured through the GUI.
 
 2. **Configure OAuth Consent Screen**
    - Navigate to `APIs & Services` > `OAuth consent screen`.
-   - Select `External` as the **User Type**.
-   - Fill in the app name, user support email, and developer contact information (email), then save and continue.
-   - In the **Scopes** section, add the following three scopes and save:
-     - `.../auth/userinfo.email`
-     - `.../auth/userinfo.profile`
-     - `openid`
+   - Fill in the app name, user support email, select `External` for the target audience, and provide developer contact information (email), then save and continue.
 
 3. **Create OAuth Client ID**
    - Navigate to `Credentials` > `Create Credentials` > `OAuth client ID`.
@@ -172,7 +175,14 @@ This step can only be configured through the GUI.
      - Add `http://localhost:3000` for local testing.
    - Click `Create` to generate your **Client ID** and **Client Secret**.
 
-4. **Add Google Credentials to Environment Variables and Supabase**
+4. **Data Access**
+   - Go to `Google Authentication Platform` > `Data Access`.
+   - In the settings, add the following three scopes and save:
+     - `.../auth/userinfo.email`
+     - `.../auth/userinfo.profile`
+     - `openid`
+
+5. **Add Google Credentials to Environment Variables and Supabase**
    - **Update `.env` file**:
      ```bash
      GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
@@ -192,9 +202,9 @@ This step can only be configured through the GUI.
 1. **Push Code to GitHub**
    ```bash
    git add .
-   git commit -m "Initial setup"
-   git push origin main
-   ```
+git commit -m "Initial setup"
+git push origin main
+```
 
 2. **Create and Deploy Vercel Project**
    - Go to the [Vercel Dashboard](https://vercel.com/) and click `New Project`.
@@ -208,6 +218,7 @@ This step can only be configured through the GUI.
    - **Site URL**: Paste the Vercel deployment domain.
    - **Redirect URLs**: Add URLs in the following formats:
      - `http://localhost:3000/**`
+     - `http://*-your-team.vercel.app/**`
      - `https://your-project-name.vercel.app/**`
 
 4. **Add Final Environment Variable**
@@ -226,18 +237,22 @@ This step can only be configured through the GUI.
 git add .
 git commit -m "Initial setup"
 git push origin main
-
+```
+```bash
 # Link to a Vercel project
 vercel link
-
+```
+```bash
 # Add environment variables to Vercel (for production)
 cat .env | grep -v '^#' | grep -v '^$' | while IFS='=' read -r key value; do
   vercel env add "$key" production <<< "$value"
 done
-
+```
+```bash
 # Deploy to production
 vercel --prod
-
+```
+```bash
 # Get deployment URL, update .env, and add to Vercel
 DEPLOYMENT_URL=$(vercel ls --json | jq -r '.deployments[0].url')
 echo "NEXT_PUBLIC_SITE_URL=https://$DEPLOYMENT_URL" >> .env
@@ -253,9 +268,9 @@ vercel env add NEXT_PUBLIC_SITE_URL production <<< "https://$DEPLOYMENT_URL"
 ## 5. Run & Verify Local Dev Server
 
 1. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 2. **Verify login functionality**
    - Open `http://localhost:3000` and attempt to log in with Google.
